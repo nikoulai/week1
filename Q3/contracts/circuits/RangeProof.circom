@@ -7,9 +7,22 @@ template RangeProof(n) {
     signal input in; // this is the number to be proved inside the range
     signal input range[2]; // the two elements should be the range, i.e. [lower bound, upper bound]
     signal output out;
+    signal temp1, temp2;
 
     component low = LessEqThan(n);
     component high = GreaterEqThan(n);
 
     // [assignment] insert your code here
+
+    low.in[0] <== in;
+    low.in[1] <== range[1]; //LessEq than the upper bound
+
+    temp1 <== low.out;
+
+    high.in[0] <== in;
+    high.in[1] <== range[0];
+
+    temp2 <== high.out;
+
+    out <== (temp1 + temp2)/2;
 }
